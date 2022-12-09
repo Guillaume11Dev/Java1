@@ -1,0 +1,13 @@
+name: Mc1
+version: '${project.version}'
+main: com.guillaume.mc1.Mc1
+api-version: 1.19
+commands:
+  test:
+    description: Ceci est une commande de test
+    permission: test.use
+  alert:
+    description: Ceci est un broadcast custom
+    permission: bc.use
+  spawn:
+    description: Ceci est une commande pour se teleporter
