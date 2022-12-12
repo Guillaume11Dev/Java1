@@ -76,17 +76,15 @@ public class MonPluginListeners implements Listener {
             player.openInventory(inv);
         }
     }
-    @EventHandler
+
+   /* @EventHandler
     public void onClick(InventoryClickEvent event){
 
         Inventory inv = event.getInventory();
         Player player = (Player) event.getWhoClicked();
         ItemStack current = event.getCurrentItem();
-        if (inv.getName().equalsIgnoreCase("§8Mon menu")); //sa marche plus à modifier
 
-
-
-    }
+    }*/
 
 
     public ItemStack getItem(Material material, String customName){
@@ -97,3 +95,8 @@ public class MonPluginListeners implements Listener {
         return  it;
     }
 }
+
+
+
+
+
