@@ -11,9 +11,9 @@ commands:
     permission: bc.use
   spawn:
     description: Ceci est une commande pour se teleporter
-
   ec:
     description: command pour ouvrir l'enderchest
     permission: ec.use
-
-
+  sb:
+    description: ouvrir le scoreboard
+    permission: sb.use

@@ -3,6 +3,7 @@ package com.guillaume.mc1;
 import com.guillaume.mc1.commands.CommandEC;
 import com.guillaume.mc1.commands.CommandSpawn;
 import com.guillaume.mc1.commands.CommandTest;
+import com.guillaume.mc1.commands.OpenScoreboardCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Mc1 extends JavaPlugin {
@@ -14,6 +15,7 @@ public final class Mc1 extends JavaPlugin {
         getCommand("alert").setExecutor(new CommandTest());
         getCommand("spawn").setExecutor(new CommandSpawn());
         getCommand("ec").setExecutor(new CommandEC());
+        getCommand("sb").setExecutor(new OpenScoreboardCommand());
         getServer().getPluginManager().registerEvents(new MonPluginListeners(),this);
     }
 
