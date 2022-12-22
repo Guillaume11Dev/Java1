@@ -2,11 +2,15 @@ package com.guillaume.mc1;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Skull;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -14,10 +18,12 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class MonPluginListeners implements Listener {
 
@@ -44,11 +50,47 @@ public class MonPluginListeners implements Listener {
         player.getInventory().setHelmet(customwool);
         player.getInventory().setItem(8, customsword);
 
+        ItemStack skull = new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (byte)3);
+        SkullMeta meta = (SkullMeta) skull.getItemMeta();
+        meta.setDisplayName("§6luckyblock");
+        meta.setOwner("luck");
+        skull.setItemMeta(meta);
+
+        player.getInventory().addItem(skull);
+
         player.updateInventory();
-
-
     }
 
+    @EventHandler
+    public void onBreak(BlockBreakEvent event){
+        Player player = event.getPlayer();
+        Block block = event.getBlock();
+        BlockState bs = block.getState();
+
+        if (bs instanceof Skull){
+            Skull skull = (Skull) bs;
+            if (skull.getOwner().equalsIgnoreCase("luck")) {
+                event.setCancelled(true);
+                block.setType(Material.AIR);
+                Random random = new Random();
+                int alea = random.nextInt(6);
+                switch (alea)
+                {
+                    case 0:
+                        player.sendMessage("Vous n'êtes pas très chanceux");
+                        break;
+
+                    case 1:
+                        block.getWorld().dropItem(block.getLocation(), new ItemStack(Material.DIAMOND, 3));
+                        break;
+
+                    default: block.getWorld().createExplosion(block.getLocation(), 2);
+                    break;
+                }
+            }
+        }
+
+    }
     @EventHandler
     public  void onInteract(PlayerInteractEvent event){
 
